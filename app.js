@@ -83,34 +83,24 @@
     });
   }
 
-  // Окно «Бесплатный тест»: выбор устройства и готовое письмо на почту
+  // Окно «Бесплатный тест»: Яндекс Форма (почта + устройство), заявка приходит на почту.
+  // Форма грузится при первом открытии окна, чтобы не замедлять страницу.
   var trial = document.getElementById('trial');
   if (trial && trial.showModal) {
-    var msgEl = document.getElementById('trial-msg');
-    var copyBtn = document.getElementById('trial-copy');
-    var go = document.getElementById('trial-go');
-    var email = cfg.email || 'ningigame@gmail.com';
-
-    var setDev = function (dev) {
-      msgEl.textContent = 'Здравствуйте! Хочу бесплатный тест RUDLink на 24 часа. Устройство: ' + dev + '.';
-      go.href = 'mailto:' + email + '?subject=' + encodeURIComponent('Бесплатный тест RUDLink') +
-        '&body=' + encodeURIComponent(msgEl.textContent);
-    };
-    var copy = function () {
-      var text = msgEl.textContent;
-      var done = function () {
-        copyBtn.textContent = 'Скопировано ✓';
-        setTimeout(function () { copyBtn.textContent = 'Скопировать'; }, 2000);
-      };
-      if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function () {});
-    };
-
-    chipGroup(trial, setDev);
-    copyBtn.addEventListener('click', copy);
-    go.addEventListener('click', copy);
+    var frame = document.getElementById('trial-form');
+    var mail = document.getElementById('trial-mail');
+    if (cfg.email) {
+      mail.href = 'mailto:' + cfg.email + '?subject=' + encodeURIComponent('Бесплатный тест RUDLink');
+      mail.textContent = cfg.email;
+    }
 
     document.querySelectorAll('[data-trial]').forEach(function (a) {
-      a.addEventListener('click', function (e) { e.preventDefault(); trial.showModal(); });
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.body.classList.remove('menu');
+        if (!frame.src && cfg.trialForm) frame.src = cfg.trialForm + (cfg.trialForm.indexOf('?') < 0 ? '?' : '&') + 'iframe=1';
+        trial.showModal();
+      });
     });
     closeOnBackdrop(trial);
   }

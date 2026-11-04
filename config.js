@@ -9,4 +9,6 @@ window.RUDLINK = {
   // Имя бота без @ (например 'RudlinkVpnBot'). Пока пусто — тест по почте, «Купить» в личку.
   bot: '',
   email: 'ningigame@gmail.com', // почта для заявок на бесплатный тест
+  // Яндекс Форма заявки на тест (почта + устройство)
+  trialForm: 'https://forms.yandex.ru/u/6aeb8e0b2c4f8918fdedb539/',
 };
