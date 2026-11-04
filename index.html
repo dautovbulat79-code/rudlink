@@ -43,7 +43,7 @@
       <p class="lead">Безлимитный трафик, стабильное соединение и подключение за пару минут. Один тариф, без скрытых платежей и автосписаний.</p>
       <div class="cta">
         <a class="btn" data-pay href="https://t.me/Bulat_WW">Купить за 249 ₽</a>
-        <a class="btn ghost" href="https://t.me/Bulat_WW">Попробовать бесплатно</a>
+        <a class="btn ghost" data-trial href="mailto:ningigame@gmail.com">Попробовать бесплатно</a>
       </div>
       <ul class="trust">
         <li>До 3 устройств</li>
@@ -172,7 +172,7 @@
           <div>
             <h3>Сначала попробуйте</h3>
             <p>Дадим доступ на 24 часа бесплатно. Напишите нам — один тест на один адрес почты.</p>
-            <a class="link" href="https://t.me/Bulat_WW">Получить тест →</a>
+            <a class="link" data-trial href="mailto:ningigame@gmail.com">Получить тест →</a>
           </div>
         </div>
         <div class="card perk reveal">
@@ -230,7 +230,7 @@
       <p class="sub">Не нашли ответ? <a href="https://t.me/Bulat_WW">Напишите нам</a>.</p>
     </div>
     <div class="qa reveal">
-      <details><summary>Как получить бесплатный тест?</summary><p>Напишите нам в Telegram или на почту, и мы выдадим доступ на 24 часа. Один тест на один адрес почты.</p></details>
+      <details><summary>Как получить бесплатный тест?</summary><p>Нажмите «Попробовать бесплатно» или напишите нам на почту ningigame@gmail.com, и мы выдадим доступ на 24 часа. Один тест на один адрес почты.</p></details>
       <details><summary>Как оплатить?</summary><p>Нажмите «Купить» — оплата проходит через платёжный сервис Coinso. Данные вашей карты к нам не попадают.</p></details>
       <details><summary>Сколько устройств можно подключить?</summary><p>До трёх одновременно: например, телефон, ноутбук и планшет.</p></details>
       <details><summary>Как продлить подписку?</summary><p>Просто оплатите следующий месяц, когда захотите. Сами мы ничего не списываем.</p></details>
@@ -247,7 +247,7 @@
       <h2>Попробуйте 24 часа бесплатно</h2>
       <p>Убедитесь, что всё работает, — и только потом платите.</p>
       <div class="cta center">
-        <a class="btn" href="https://t.me/Bulat_WW">Получить тест</a>
+        <a class="btn" data-trial href="mailto:ningigame@gmail.com">Получить тест</a>
         <a class="btn ghost" data-pay href="https://t.me/Bulat_WW">Купить за 249 ₽</a>
       </div>
     </div>
@@ -264,7 +264,7 @@
     </div>
     <div class="contacts">
       <a class="card ct reveal" href="https://t.me/Bulat_WW"><small>Telegram</small><span>@Bulat_WW</span></a>
-      <a class="card ct reveal" href="mailto:dautovbulat79@gmail.com"><small>Email</small><span>dautovbulat79@gmail.com</span></a>
+      <a class="card ct reveal" href="mailto:ningigame@gmail.com"><small>Email</small><span>ningigame@gmail.com</span></a>
       <a class="card ct reveal" href="tel:+79377741522"><small>Телефон</small><span>+7 937 774-15-22</span></a>
     </div>
   </div>
@@ -279,6 +279,28 @@
     <p>© <span id="y">2026</span> RUDLink. Продавец: Нагорный Максим Анушеевич, самозанятый, ИНН 163604402018.</p>
   </div>
 </footer>
+
+<dialog id="trial" class="modal" aria-labelledby="trial-title">
+  <form method="dialog" class="modal-in">
+    <button class="x" value="close" aria-label="Закрыть">×</button>
+    <span class="pill"><i></i>24 часа бесплатно</span>
+    <h2 id="trial-title">Бесплатный тест</h2>
+    <p class="sub">Напишите нам на почту <a href="mailto:ningigame@gmail.com">ningigame@gmail.com</a> — пришлём ссылку-подписку на 24 часа. Один тест на один адрес почты.</p>
+
+    <p class="label">1. Ваше устройство</p>
+    <div class="chips" role="radiogroup">
+      <button type="button" role="radio" aria-checked="true" data-dev="Android">Android</button>
+      <button type="button" role="radio" aria-checked="false" data-dev="iPhone">iPhone</button>
+      <button type="button" role="radio" aria-checked="false" data-dev="Windows / Mac">Компьютер</button>
+    </div>
+
+    <p class="label">2. Отправьте это сообщение</p>
+    <div class="msg"><span id="trial-msg"></span><button type="button" class="copy" id="trial-copy">Скопировать</button></div>
+
+    <a class="btn wide" id="trial-go" href="mailto:ningigame@gmail.com">Написать на почту</a>
+    <p class="fine">Откроется почта с готовым письмом — останется нажать «Отправить». Если не открылась, скопируйте текст и отправьте на ningigame@gmail.com.</p>
+  </form>
+</dialog>
 
 <div class="bar" aria-hidden="true">
   <div><b>249 ₽</b> / месяц</div>
