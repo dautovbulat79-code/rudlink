@@ -1,24 +1,78 @@
 (function () {
   var cfg = window.RUDLINK || {};
 
-  // Кнопки «Купить»: ссылка Coinso, если задана, иначе Telegram
-  if (cfg.payUrl) {
-    document.querySelectorAll('[data-pay]').forEach(function (a) { a.href = cfg.payUrl; });
-  }
-
   document.getElementById('y').textContent = new Date().getFullYear();
 
-  // Окно «Бесплатный тест»: выбор устройства и готовое сообщение для Telegram
+  var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+
+  // Выбор устройства «чипами» внутри окна; возвращает функцию, которая отдаёт выбранное
+  var chipGroup = function (box, onChange) {
+    var chips = box.querySelectorAll('[data-dev]');
+    var current;
+    var set = function (dev) {
+      current = dev;
+      chips.forEach(function (c) { c.setAttribute('aria-checked', c.dataset.dev === dev); });
+      if (onChange) onChange(dev);
+    };
+    chips.forEach(function (c) { c.addEventListener('click', function () { set(c.dataset.dev); }); });
+    set(isIOS ? 'iPhone' : 'Android');
+    return function () { return current; };
+  };
+
+  // Клик по затемнению вокруг окна закрывает его
+  var closeOnBackdrop = function (dlg) {
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+  };
+
+  // Окно «Купить»: устройство и почта → платёжная ссылка Coinso.
+  // Почта и устройство уходят в параметр order — их видно в кабинете Coinso у платежа.
+  var buy = document.getElementById('buy');
+  if (buy && buy.showModal && cfg.payUrl) {
+    var form = document.getElementById('buy-form');
+    var emailIn = document.getElementById('buy-email');
+    var err = document.getElementById('buy-err');
+    var buyDev = chipGroup(buy);
+
+    document.querySelectorAll('[data-pay]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.body.classList.remove('menu');
+        buy.showModal();
+        emailIn.focus();
+      });
+    });
+    buy.querySelector('.x').addEventListener('click', function () { buy.close(); });
+    closeOnBackdrop(buy);
+    emailIn.addEventListener('input', function () { err.hidden = true; });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = emailIn.value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        err.hidden = false;
+        emailIn.focus();
+        return;
+      }
+      var q = [
+        'amount=' + (cfg.price || 249),
+        'order=' + encodeURIComponent(email + ' | ' + buyDev()),
+        'email=' + encodeURIComponent(email),
+        'desc=' + encodeURIComponent('RUDLink VPN, 30 дней'),
+        'lang=ru',
+      ];
+      location.href = cfg.payUrl + '?' + q.join('&');
+    });
+  }
+
+  // Окно «Бесплатный тест»: выбор устройства и готовое письмо на почту
   var trial = document.getElementById('trial');
   if (trial && trial.showModal) {
     var msgEl = document.getElementById('trial-msg');
     var copyBtn = document.getElementById('trial-copy');
     var go = document.getElementById('trial-go');
-    var chips = trial.querySelectorAll('[data-dev]');
     var email = cfg.email || 'ningigame@gmail.com';
 
     var setDev = function (dev) {
-      chips.forEach(function (c) { c.setAttribute('aria-checked', c.dataset.dev === dev); });
       msgEl.textContent = 'Здравствуйте! Хочу бесплатный тест RUDLink на 24 часа. Устройство: ' + dev + '.';
       go.href = 'mailto:' + email + '?subject=' + encodeURIComponent('Бесплатный тест RUDLink') +
         '&body=' + encodeURIComponent(msgEl.textContent);
@@ -32,16 +86,14 @@
       if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function () {});
     };
 
-    chips.forEach(function (c) { c.addEventListener('click', function () { setDev(c.dataset.dev); }); });
+    chipGroup(trial, setDev);
     copyBtn.addEventListener('click', copy);
     go.addEventListener('click', copy);
-    setDev(/iPhone|iPad|iPod/.test(navigator.userAgent) ? 'iPhone' : 'Android');
 
     document.querySelectorAll('[data-trial]').forEach(function (a) {
       a.addEventListener('click', function (e) { e.preventDefault(); trial.showModal(); });
     });
-    // Клик по затемнению вокруг окна закрывает его
-    trial.addEventListener('click', function (e) { if (e.target === trial) trial.close(); });
+    closeOnBackdrop(trial);
   }
 
   // Мобильное меню
@@ -68,7 +120,7 @@
       });
     });
   });
-  if (/iPhone|iPad|iPod/.test(navigator.userAgent)) tabs[1].click();
+  if (isIOS) tabs[1].click();
 
   // Появление блоков при прокрутке
   var els = document.querySelectorAll('.reveal');

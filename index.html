@@ -27,7 +27,7 @@
       <a href="#faq">Вопросы</a>
       <a href="#contacts">Контакты</a>
     </nav>
-    <a class="btn sm" data-pay href="https://t.me/Piepiebear">Купить</a>
+    <a class="btn sm" data-pay href="https://coinso.io/w/1h1nqao5btxn?amount=249&amp;lang=ru">Купить</a>
     <button class="burger" aria-label="Меню" aria-expanded="false" aria-controls="nav"><span></span><span></span></button>
   </div>
 </header>
@@ -42,7 +42,7 @@
       <h1>Свободный интернет <span class="grad">на всех ваших устройствах</span></h1>
       <p class="lead">Безлимитный трафик, стабильное соединение и подключение за пару минут. Один тариф, без скрытых платежей и автосписаний.</p>
       <div class="cta">
-        <a class="btn" data-pay href="https://t.me/Piepiebear">Купить за 249 ₽</a>
+        <a class="btn" data-pay href="https://coinso.io/w/1h1nqao5btxn?amount=249&amp;lang=ru">Купить за 249 ₽</a>
         <a class="btn ghost" data-trial href="mailto:ningigame@gmail.com">Попробовать бесплатно</a>
       </div>
       <ul class="trust">
@@ -162,7 +162,7 @@
             <li>Приложения для Android и iPhone</li>
             <li>Возврат в течение 3 дней, если не удалось подключиться</li>
           </ul>
-          <a class="btn wide" data-pay href="https://t.me/Piepiebear">Купить</a>
+          <a class="btn wide" data-pay href="https://coinso.io/w/1h1nqao5btxn?amount=249&amp;lang=ru">Купить</a>
           <p class="fine">Оплата проходит через платёжный сервис Coinso.</p>
         </div>
       </div>
@@ -248,7 +248,7 @@
       <p>Убедитесь, что всё работает, — и только потом платите.</p>
       <div class="cta center">
         <a class="btn" data-trial href="mailto:ningigame@gmail.com">Получить тест</a>
-        <a class="btn ghost" data-pay href="https://t.me/Piepiebear">Купить за 249 ₽</a>
+        <a class="btn ghost" data-pay href="https://coinso.io/w/1h1nqao5btxn?amount=249&amp;lang=ru">Купить за 249 ₽</a>
       </div>
     </div>
   </div>
@@ -302,9 +302,32 @@
   </form>
 </dialog>
 
+<dialog id="buy" class="modal" aria-labelledby="buy-title">
+  <form class="modal-in" id="buy-form" novalidate>
+    <button type="button" class="x" aria-label="Закрыть">×</button>
+    <span class="pill"><i></i>249 ₽ за 30 дней</span>
+    <h2 id="buy-title">Оформление подписки</h2>
+    <p class="sub">После оплаты пришлём ссылку-подписку и инструкцию на вашу почту.</p>
+
+    <p class="label">1. Ваше устройство</p>
+    <div class="chips" role="radiogroup">
+      <button type="button" role="radio" aria-checked="true" data-dev="Android">Android</button>
+      <button type="button" role="radio" aria-checked="false" data-dev="iPhone">iPhone</button>
+      <button type="button" role="radio" aria-checked="false" data-dev="Windows / Mac">Компьютер</button>
+    </div>
+
+    <p class="label"><label for="buy-email">2. Почта для ключа</label></p>
+    <input class="field" id="buy-email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required>
+    <p class="err" id="buy-err" hidden>Проверьте адрес почты — на него придёт ключ.</p>
+
+    <button class="btn wide" type="submit">Перейти к оплате 249 ₽</button>
+    <p class="fine">Оплата на защищённой странице Coinso. Нажимая кнопку, вы принимаете <a href="legal.html">правила сервиса</a>.</p>
+  </form>
+</dialog>
+
 <div class="bar" aria-hidden="true">
   <div><b>249 ₽</b> / месяц</div>
-  <a class="btn sm" data-pay href="https://t.me/Piepiebear" tabindex="-1">Купить</a>
+  <a class="btn sm" data-pay href="https://coinso.io/w/1h1nqao5btxn?amount=249&amp;lang=ru" tabindex="-1">Купить</a>
 </div>
 
 <script src="config.js"></script>

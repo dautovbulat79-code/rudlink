@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Спасибо за оплату — RUDLink</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#060d1f">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="scrolled">
+
+<header class="top">
+  <div class="w top-in">
+    <a class="logo" href="index.html"><img src="favicon.svg" alt="" width="30" height="30"><span>RUD<b>Link</b></span></a>
+    <a class="btn sm ghost" href="index.html" style="margin-left:auto">← На главную</a>
+  </div>
+</header>
+
+<main class="w doc done">
+  <div class="ok" aria-hidden="true">✓</div>
+  <span class="kicker">Заказ принят</span>
+  <h1>Спасибо за оплату!</h1>
+  <p id="to">Проверим платёж и пришлём ссылку-подписку на вашу почту — обычно в течение часа.</p>
+
+  <ol class="steps">
+    <li><h3>Дождитесь письма</h3><p>Письмо придёт с ningigame@gmail.com. Если его нет во «Входящих», загляните в «Спам».</p></li>
+    <li><h3>Установите приложение</h3><p>Android — <a href="https://github.com/Happ-proxy/happ-android/releases/latest/download/Happ.apk">Happ</a>, iPhone — <a href="https://apps.apple.com/ru/app/duck-connect/id6790362049">Duck Connect</a>. Можно сделать это заранее.</p></li>
+    <li><h3>Добавьте подписку</h3><p>Скопируйте ссылку из письма, вставьте в приложение и нажмите «Подключиться».</p></li>
+  </ol>
+
+  <p class="fine">Письмо не пришло за 2 часа? Напишите на <a href="mailto:ningigame@gmail.com">ningigame@gmail.com</a> или в Telegram <a href="https://t.me/Piepiebear">@Piepiebear</a> и укажите почту, с которой оформляли заказ.</p>
+
+  <div class="cta">
+    <a class="btn ghost" href="index.html#connect">Инструкция по подключению</a>
+  </div>
+</main>
+
+<footer>
+  <div class="w foot">
+    <a class="logo" href="index.html"><img src="favicon.svg" alt="" width="24" height="24"><span>RUD<b>Link</b></span></a>
+    <nav><a href="index.html">На главную</a><a href="legal.html">Документы</a></nav>
+    <p>© 2026 RUDLink. Продавец: Нагорный Максим Анушеевич, самозанятый, ИНН 163604402018.</p>
+  </div>
+</footer>
+
+<script>
+  // Coinso возвращает сюда с ?custom=<почта | устройство> — показываем почту, чтобы клиент проверил адрес
+  (function () {
+    var custom = new URLSearchParams(location.search).get('custom') || '';
+    var email = custom.split(' | ')[0];
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return;
+    var p = document.getElementById('to');
+    p.textContent = 'Проверим платёж и пришлём ссылку-подписку на ';
+    var b = document.createElement('b');
+    b.textContent = email;
+    p.appendChild(b);
+    p.appendChild(document.createTextNode(' — обычно в течение часа.'));
+  })();
+</script>
+</body>
+</html>

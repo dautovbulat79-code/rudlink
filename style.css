@@ -196,6 +196,17 @@ footer{border-top:1px solid var(--line);padding:40px 0 48px;color:var(--dim);fon
 .msg span{flex:1}
 .copy{flex:none;padding:7px 12px;border-radius:10px;border:1px solid var(--line2);background:var(--s2);color:var(--ac);font:inherit;font-size:.85rem;font-weight:700;cursor:pointer}
 .copy:hover{border-color:var(--ac)}
+.field{display:block;width:100%;padding:14px 16px;border-radius:14px;border:1px solid var(--line2);background:rgba(6,13,31,.6);color:var(--ink);font:inherit;font-size:1rem;outline:none;transition:border-color .15s}
+.field::placeholder{color:var(--dim)}
+.field:focus{border-color:var(--ac)}
+.err{margin:8px 0 0;color:#ff8a8a;font-size:.88rem}
+.modal .btn.wide{margin-top:22px}
+.modal .fine a{color:var(--mut)}
+.done{max-width:640px;text-align:center}
+.done .ok{width:72px;height:72px;margin:0 auto 22px;border-radius:22px;background:var(--grad);display:grid;place-items:center;color:#041022;font-size:2.2rem;font-weight:800}
+.done .steps{text-align:left;margin-top:36px;grid-template-columns:1fr}
+.done .steps:before{display:none}
+.done .cta{justify-content:center;margin-top:32px}
 
 /* Появление */
 .js .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
