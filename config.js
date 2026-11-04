@@ -1,8 +1,12 @@
 // Всё, что можно менять без правки кода.
 window.RUDLINK = {
   // Платёжная ссылка Coinso (кабинет → проект → Виджет) и цена в рублях.
-  payUrl: 'https://coinso.io/w/1h1nqao5btxn',
+  // Пока пусто — кнопки «Купить» ведут в Telegram. Когда Coinso включит СБП, вернуть:
+  // payUrl: 'https://coinso.io/w/1h1nqao5btxn',
+  payUrl: '',
   price: 249,
   telegram: 'Piepiebear',
+  // Имя бота без @ (например 'RudlinkVpnBot'). Пока пусто — тест по почте, «Купить» в личку.
+  bot: '',
   email: 'ningigame@gmail.com', // почта для заявок на бесплатный тест
 };
