@@ -2,6 +2,6 @@
 window.RUDLINK = {
   // Ссылка на оплату в Coinso. Пока пусто — кнопки «Купить» ведут в Telegram.
   payUrl: '',
-  telegram: 'Bulat_WW',
+  telegram: 'Piepiebear',
   email: 'ningigame@gmail.com', // почта для заявок на бесплатный тест
 };
