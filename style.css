@@ -176,6 +176,27 @@ footer{border-top:1px solid var(--line);padding:40px 0 48px;color:var(--dim);fon
 .bar div b{color:var(--ink)}
 .show-bar .bar{transform:none}
 
+/* Окно «Бесплатный тест» */
+.modal{width:min(480px,calc(100% - 32px));max-height:calc(100% - 32px);padding:0;border:0;border-radius:28px;background:transparent;color:var(--ink);overflow:visible}
+.modal::backdrop{background:rgba(3,7,18,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.modal[open]{animation:pop .25s ease}
+@keyframes pop{from{opacity:0;transform:translateY(12px) scale(.98)}}
+.modal-in{position:relative;padding:32px;border-radius:28px;border:1px solid var(--line2);max-height:calc(100vh - 32px);overflow:auto;
+  background:radial-gradient(420px 220px at 50% -10%,rgba(76,195,255,.18),transparent 70%),linear-gradient(160deg,#101e42,var(--s));box-shadow:0 40px 100px -20px rgba(0,0,0,.7)}
+.modal h2{font-size:1.9rem;margin-bottom:8px}
+.modal .pill{margin-bottom:16px}
+.modal .sub{font-size:1rem}
+.x{position:absolute;top:14px;right:14px;width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:transparent;color:var(--mut);font-size:1.5rem;line-height:1;cursor:pointer}
+.x:hover{color:var(--ink);border-color:var(--line2)}
+.label{margin:24px 0 10px;font-weight:700;font-size:.95rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{padding:10px 16px;border-radius:12px;border:1px solid var(--line2);background:rgba(12,23,51,.6);color:var(--mut);font:inherit;font-weight:600;cursor:pointer;transition:all .15s}
+.chips button[aria-checked=true]{color:#041022;background:var(--grad);border-color:transparent}
+.msg{display:flex;align-items:flex-start;gap:12px;padding:14px 14px 14px 16px;border-radius:14px;border:1px dashed var(--line2);background:rgba(6,13,31,.6);color:var(--ink);font-size:.97rem;margin-bottom:22px}
+.msg span{flex:1}
+.copy{flex:none;padding:7px 12px;border-radius:10px;border:1px solid var(--line2);background:var(--s2);color:var(--ac);font:inherit;font-size:.85rem;font-weight:700;cursor:pointer}
+.copy:hover{border-color:var(--ac)}
+
 /* Появление */
 .js .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
 .js .reveal.in{opacity:1;transform:none}
@@ -234,6 +255,9 @@ footer{border-top:1px solid var(--line);padding:40px 0 48px;color:var(--dim);fon
   .foot{grid-template-columns:1fr}
   .foot nav{justify-content:flex-start}
   .bar{display:flex}
+  .modal-in{padding:26px 20px}
+  .modal h2{font-size:1.6rem}
+  .msg{flex-direction:column}
   footer{padding-bottom:96px}
 }
 @media(prefers-reduced-motion:reduce){
