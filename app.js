@@ -8,6 +8,42 @@
 
   document.getElementById('y').textContent = new Date().getFullYear();
 
+  // Окно «Бесплатный тест»: выбор устройства и готовое сообщение для Telegram
+  var trial = document.getElementById('trial');
+  if (trial && trial.showModal) {
+    var msgEl = document.getElementById('trial-msg');
+    var copyBtn = document.getElementById('trial-copy');
+    var go = document.getElementById('trial-go');
+    var chips = trial.querySelectorAll('[data-dev]');
+    var email = cfg.email || 'ningigame@gmail.com';
+
+    var setDev = function (dev) {
+      chips.forEach(function (c) { c.setAttribute('aria-checked', c.dataset.dev === dev); });
+      msgEl.textContent = 'Здравствуйте! Хочу бесплатный тест RUDLink на 24 часа. Устройство: ' + dev + '.';
+      go.href = 'mailto:' + email + '?subject=' + encodeURIComponent('Бесплатный тест RUDLink') +
+        '&body=' + encodeURIComponent(msgEl.textContent);
+    };
+    var copy = function () {
+      var text = msgEl.textContent;
+      var done = function () {
+        copyBtn.textContent = 'Скопировано ✓';
+        setTimeout(function () { copyBtn.textContent = 'Скопировать'; }, 2000);
+      };
+      if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function () {});
+    };
+
+    chips.forEach(function (c) { c.addEventListener('click', function () { setDev(c.dataset.dev); }); });
+    copyBtn.addEventListener('click', copy);
+    go.addEventListener('click', copy);
+    setDev(/iPhone|iPad|iPod/.test(navigator.userAgent) ? 'iPhone' : 'Android');
+
+    document.querySelectorAll('[data-trial]').forEach(function (a) {
+      a.addEventListener('click', function (e) { e.preventDefault(); trial.showModal(); });
+    });
+    // Клик по затемнению вокруг окна закрывает его
+    trial.addEventListener('click', function (e) { if (e.target === trial) trial.close(); });
+  }
+
   // Мобильное меню
   var burger = document.querySelector('.burger');
   var nav = document.getElementById('nav');
