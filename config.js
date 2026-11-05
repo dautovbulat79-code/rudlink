@@ -4,7 +4,7 @@ window.RUDLINK = {
   // Пока пусто — кнопки «Купить» ведут в Telegram. Когда Coinso включит СБП, вернуть:
   // payUrl: 'https://coinso.io/w/1h1nqao5btxn',
   payUrl: '',
-  price: 300,
+  price: 179,
   telegram: 'Piepiebear',
   // Имя бота без @ (например 'RudlinkVpnBot'): «Купить» ведёт в бота. Пока пусто — в личку.
   // Тест всегда на сайте: без VPN Telegram может не открыться.

@@ -66,7 +66,7 @@
         return;
       }
       var q = [
-        'amount=' + (cfg.price || 300),
+        'amount=' + (cfg.price || 179),
         'order=' + encodeURIComponent(email + ' | ' + buyDev()),
         'email=' + encodeURIComponent(email),
         'desc=' + encodeURIComponent('RUDLink VPN, 30 дней'),
