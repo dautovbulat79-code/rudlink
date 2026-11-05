@@ -24,7 +24,7 @@
     dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
   };
 
-  // Без ссылки Coinso кнопки «Купить» ведут в бота (сразу к выбору устройства) или в Telegram
+  // Без ссылки Coinso кнопки «Купить» ведут в бота (сразу в кабинет с оплатой) или в Telegram
   var tgLink = function (a, url) {
     a.href = url;
     a.target = '_blank';
@@ -33,13 +33,6 @@
   if (!cfg.payUrl && (cfg.bot || cfg.telegram)) {
     document.querySelectorAll('[data-pay]').forEach(function (a) {
       tgLink(a, cfg.bot ? 'https://t.me/' + cfg.bot + '?start=buy' : 'https://t.me/' + cfg.telegram);
-    });
-  }
-  // С ботом тест тоже оформляется в нём — окно с письмом не нужно
-  if (cfg.bot) {
-    document.querySelectorAll('[data-trial]').forEach(function (a) {
-      tgLink(a, 'https://t.me/' + cfg.bot + '?start=trial');
-      a.removeAttribute('data-trial');
     });
   }
 
@@ -73,7 +66,7 @@
         return;
       }
       var q = [
-        'amount=' + (cfg.price || 249),
+        'amount=' + (cfg.price || 300),
         'order=' + encodeURIComponent(email + ' | ' + buyDev()),
         'email=' + encodeURIComponent(email),
         'desc=' + encodeURIComponent('RUDLink VPN, 30 дней'),
