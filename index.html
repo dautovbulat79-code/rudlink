@@ -173,7 +173,7 @@
         <ul class="price__list">
           <li><span class="tick tick--light"></span>Безлимитный трафик</li>
           <li><span class="tick tick--light"></span>До 3 устройств одновременно</li>
-          <li><span class="tick tick--light"></span>Приложения для Android и iPhone</li>
+          <li><span class="tick tick--light"></span>Приложения для Android, iPhone, Mac и Windows</li>
           <li><span class="tick tick--light"></span>Возврат в течение 3 дней, если не удалось подключиться</li>
           <li><span class="tick tick--light"></span>Без автосписаний</li>
         </ul>
@@ -223,6 +223,12 @@
       <button class="tab" role="tab" id="tab-ios" aria-selected="false" aria-controls="panel-ios" data-tab="ios" tabindex="-1">
         <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg> iPhone
       </button>
+      <button class="tab" role="tab" id="tab-mac" aria-selected="false" aria-controls="panel-mac" data-tab="mac" tabindex="-1">
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M2 20h20"/></svg> Mac
+      </button>
+      <button class="tab" role="tab" id="tab-win" aria-selected="false" aria-controls="panel-win" data-tab="win" tabindex="-1">
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg> Windows
+      </button>
       <span class="tabs__glider" aria-hidden="true"></span>
     </div>
 
@@ -230,12 +236,15 @@
       <div class="panel is-active" role="tabpanel" id="panel-android" aria-labelledby="tab-android">
         <ol class="steps">
           <li class="step reveal"><span class="step__n">1</span><div><h3>Оплатите подписку</h3><p>Нажмите «Купить», в Telegram подскажем, как оплатить, и пришлём ссылку на подписку.</p></div></li>
-          <li class="step reveal"><span class="step__n">2</span><div><h3>Установите Happ</h3><p>Скачайте приложение кнопкой ниже и установите. Если телефон спросит, разрешите установку из этого источника.</p></div></li>
+          <li class="step reveal"><span class="step__n">2</span><div><h3>Установите Happ</h3><p>Скачайте приложение из Google Play или файлом APK кнопками ниже. Если телефон спросит про установку APK, разрешите.</p></div></li>
           <li class="step reveal"><span class="step__n">3</span><div><h3>Добавьте подписку</h3><p>Скопируйте ссылку на подписку, откройте Happ и вставьте её из буфера обмена.</p></div></li>
           <li class="step reveal"><span class="step__n">4</span><div><h3>Нажмите «Подключить»</h3><p>Готово. Значок соединения загорится, можно работать.</p></div></li>
         </ol>
         <a class="btn btn--primary btn--lg" data-app="android" href="https://github.com/Happ-proxy/happ-android/releases/latest/download/Happ.apk" rel="noopener">
-          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 20h14"/></svg> Скачать Happ для Android
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 20h14"/></svg> Скачать Happ (APK)
+        </a>
+        <a class="btn btn--ghost btn--lg" data-app="androidPlay" href="https://play.google.com/store/apps/details?id=com.happproxy" target="_blank" rel="noopener">
+          Happ в Google Play
         </a>
       </div>
 
@@ -248,6 +257,30 @@
         </ol>
         <a class="btn btn--primary btn--lg" data-app="ios" href="https://apps.apple.com/ru/app/duck-connect/id6790362049" target="_blank" rel="noopener">
           <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 20h14"/></svg> Скачать Duck Connect в App Store
+        </a>
+      </div>
+
+      <div class="panel" role="tabpanel" id="panel-mac" aria-labelledby="tab-mac" hidden>
+        <ol class="steps">
+          <li class="step"><span class="step__n">1</span><div><h3>Оплатите подписку</h3><p>Нажмите «Купить», в Telegram подскажем, как оплатить, и пришлём ссылку на подписку.</p></div></li>
+          <li class="step"><span class="step__n">2</span><div><h3>Установите Happ</h3><p>Скачайте Happ из App Store кнопкой ниже.</p></div></li>
+          <li class="step"><span class="step__n">3</span><div><h3>Добавьте подписку</h3><p>Скопируйте ссылку на подписку, откройте Happ, нажмите «+» и вставьте её из буфера обмена.</p></div></li>
+          <li class="step"><span class="step__n">4</span><div><h3>Нажмите «Подключить»</h3><p>Готово. Значок соединения загорится, можно работать.</p></div></li>
+        </ol>
+        <a class="btn btn--primary btn--lg" data-app="mac" href="#" target="_blank" rel="noopener">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 20h14"/></svg> Скачать Happ для Mac
+        </a>
+      </div>
+
+      <div class="panel" role="tabpanel" id="panel-win" aria-labelledby="tab-win" hidden>
+        <ol class="steps">
+          <li class="step"><span class="step__n">1</span><div><h3>Оплатите подписку</h3><p>Нажмите «Купить», в Telegram подскажем, как оплатить, и пришлём ссылку на подписку.</p></div></li>
+          <li class="step"><span class="step__n">2</span><div><h3>Установите Happ</h3><p>Скачайте установщик кнопкой ниже и запустите его. Если Windows предупредит о неизвестном издателе, нажмите «Подробнее» → «Выполнить в любом случае».</p></div></li>
+          <li class="step"><span class="step__n">3</span><div><h3>Добавьте подписку</h3><p>Скопируйте ссылку на подписку, откройте Happ, нажмите «+» и вставьте её из буфера обмена.</p></div></li>
+          <li class="step"><span class="step__n">4</span><div><h3>Нажмите «Подключить»</h3><p>Готово. Значок соединения загорится, можно работать.</p></div></li>
+        </ol>
+        <a class="btn btn--primary btn--lg" data-app="windows" href="#" rel="noopener">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 20h14"/></svg> Скачать Happ для Windows
         </a>
       </div>
 

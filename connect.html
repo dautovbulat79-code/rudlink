@@ -46,7 +46,7 @@
     noKey: 'No key here. Go back to the bot and tap “Connect” there.',
     android: 'Happ will open and add your key. Then tap the big button to turn the VPN on.',
     ios: 'Tap “Copy key”, open the app, tap “+” and choose “From clipboard”.',
-    other: 'Copy the key and paste it into the app.',
+    desktop: 'Tap “Open in Happ”: the app will add your key. Then turn the VPN on.',
     open: 'Open in Happ', copy: 'Copy key', copied: 'Copied ✓',
     h: 'Connecting…', hDone: 'Almost done',
     help: 'Didn’t work? Copy the key and add it in the app by hand: “+” → “From clipboard”.'
@@ -55,7 +55,7 @@
     noKey: 'Ключа тут нет. Вернитесь в бот и нажмите «Подключить» там.',
     android: 'Сейчас откроется Happ и добавит ключ. Потом нажмите большую кнопку, чтобы включить VPN.',
     ios: 'Нажмите «Скопировать ключ», откройте приложение, нажмите «+» и выберите «Из буфера».',
-    other: 'Скопируйте ключ и вставьте его в приложение.',
+    desktop: 'Нажмите «Открыть в Happ»: приложение само добавит ключ. Потом включите VPN.',
     open: 'Открыть в Happ', copy: 'Скопировать ключ', copied: 'Скопировано ✓',
     h: 'Подключаем…', hDone: 'Почти готово',
     help: 'Не сработало? Скопируйте ключ и добавьте его вручную: «+» → «Из буфера».'
@@ -100,8 +100,15 @@
     $('p').textContent = T.android;
     $('s').textContent = T.help;
     location.href = link; // сразу пробуем открыть Happ
+  } else if (ios) {
+    $('p').textContent = T.ios;
   } else {
-    $('p').textContent = ios ? T.ios : T.other;
+    // Mac и Windows: Happ для компьютера, кнопка открывает его с ключом
+    $('open').href = 'happ://add/' + key;
+    $('open').hidden = false;
+    $('copy').className = 'btn btn--ghost btn--lg';
+    $('p').textContent = T.desktop;
+    $('s').textContent = T.help;
   }
 })();
 </script>

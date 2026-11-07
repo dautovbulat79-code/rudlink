@@ -126,10 +126,13 @@
       }
     });
   });
-  // Если зашли с iPhone, сразу показываем инструкцию для iPhone
+  // Сразу показываем инструкцию для устройства, с которого зашли
   var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) ||
     (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-  selectTab(isIOS ? tabs[1] : tabs[0]);
+  var isMac = !isIOS && /Macintosh|Mac OS X/.test(navigator.userAgent);
+  var isWin = /Windows/.test(navigator.userAgent);
+  var byTab = function (name) { return tabs.filter(function (x) { return x.getAttribute('data-tab') === name; })[0]; };
+  selectTab(byTab(isIOS ? 'ios' : isMac ? 'mac' : isWin ? 'win' : 'android') || tabs[0]);
   window.addEventListener('resize', function () { moveGlider($('.tab.is-active')); });
   window.addEventListener('load', function () { moveGlider($('.tab.is-active')); });
 

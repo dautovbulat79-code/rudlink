@@ -29,7 +29,10 @@ window.RUDLINK_CONFIG = {
 
   // Приложения
   apps: {
-    android: 'https://github.com/Happ-proxy/happ-android/releases/latest/download/Happ.apk',
-    ios: 'https://apps.apple.com/ru/app/duck-connect/id6790362049'
+    android: 'https://github.com/Happ-proxy/happ-android/releases/latest/download/Happ.apk', // APK-файл
+    androidPlay: 'https://play.google.com/store/apps/details?id=com.happproxy',              // Google Play
+    ios: 'https://apps.apple.com/ru/app/duck-connect/id6790362049',
+    mac: 'https://apps.apple.com/ca/app/happ-proxy-utility/id6504287215',
+    windows: 'https://github.com/Happ-proxy/happ-desktop/releases/latest/download/setup-Happ.x64.exe'
   }
 };

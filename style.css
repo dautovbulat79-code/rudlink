@@ -289,6 +289,7 @@ svg.i{width:18px;height:18px;flex:none}
 .tabs__glider{position:absolute;z-index:0;top:6px;bottom:6px;left:6px;border-radius:12px;background:linear-gradient(180deg,var(--navy-2),var(--navy));box-shadow:0 8px 18px -8px rgba(36,53,154,.7);transition:transform .4s var(--ease),width .4s var(--ease)}
 .setup{display:grid;grid-template-columns:1.25fr .75fr;gap:40px;align-items:start}
 .panel{grid-column:1}
+.panel .btn + .btn{margin-left:10px}
 .panel.is-active{animation:panelIn .45s var(--ease)}
 @keyframes panelIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 .steps{list-style:none;margin:0 0 28px;padding:0;display:grid;gap:14px;counter-reset:s}
@@ -509,10 +510,12 @@ body.no-scroll{overflow:hidden}
   .price{padding:26px 22px;border-radius:24px}
   .say p{font-size:15px}
   .tabs{display:flex;width:100%}
-  .tab{flex:1;justify-content:center;padding:10px}
+  .tab{flex:1;min-width:0;justify-content:center;padding:10px 4px;font-size:15px}
+  .tab .i{display:none} /* 4 вкладки на узком экране: только подписи */
   .step{padding:18px;gap:14px}
   .step:not(:last-child)::after{left:39px;top:62px}
   .panel .btn{width:100%;white-space:normal;text-align:center}
+  .panel .btn + .btn{margin:10px 0 0}
   .final__card{grid-template-columns:1fr;padding:32px 22px;text-align:center;justify-items:center;gap:22px;border-radius:26px}
   .final__art{width:180px}
   .final p{margin:12px auto 24px}

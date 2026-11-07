@@ -20,16 +20,18 @@
 </style>
 </head>
 <body>
-<!-- Кнопка «1. Скачать приложение» из бота. Телефон сразу уходит в нужный магазин, компьютер видит выбор. -->
+<!-- Кнопка «1. Скачать приложение» из бота. Свои кнопки наверху, iPhone сразу уходит в App Store. Ссылки берутся из config.js. -->
 <main class="pg">
   <div class="pg__card">
     <img class="pg__bear" src="bear.jpg" width="640" height="640" alt="">
     <h1 id="h">Скачайте приложение</h1>
-    <p id="p">Выберите свой телефон. Потом вернитесь в бот и нажмите «Подключить».</p>
-    <div class="pg__btns">
-      <a class="btn btn--primary btn--lg" id="ios" href="#">iPhone — App Store</a>
-      <a class="btn btn--primary btn--lg" id="android" href="#">Android — скачать Happ</a>
-      <a class="btn btn--ghost btn--lg" id="pc" href="https://t.me/Piepiebear">Компьютер — напишите нам</a>
+    <p id="p">Выберите своё устройство. Потом вернитесь в бот и нажмите «Подключить».</p>
+    <div class="pg__btns" id="btns">
+      <a class="btn btn--ghost btn--lg" data-os="android" data-app="androidPlay" target="_blank" rel="noopener" href="#">Android — Google Play</a>
+      <a class="btn btn--ghost btn--lg" data-os="android" data-app="android" href="#">Android — файл APK</a>
+      <a class="btn btn--ghost btn--lg" data-os="ios" data-app="ios" target="_blank" rel="noopener" href="#">iPhone — App Store</a>
+      <a class="btn btn--ghost btn--lg" data-os="mac" data-app="mac" target="_blank" rel="noopener" href="#">Mac — App Store</a>
+      <a class="btn btn--ghost btn--lg" data-os="win" data-app="windows" href="#">Windows — скачать Happ</a>
     </div>
   </div>
 </main>
@@ -37,21 +39,25 @@
 (function () {
   var C = window.RUDLINK_CONFIG || {}, A = C.apps || {};
   var en = new URLSearchParams(location.search).get('lang') === 'en';
+  var links = [].slice.call(document.querySelectorAll('#btns a'));
+  links.forEach(function (a) { a.href = A[a.getAttribute('data-app')] || '#'; });
   if (en) {
     document.documentElement.lang = 'en';
     document.getElementById('h').textContent = 'Download the app';
-    document.getElementById('p').textContent = 'Pick your phone. Then go back to the bot and tap “Connect”.';
-    document.getElementById('ios').textContent = 'iPhone — App Store';
-    document.getElementById('android').textContent = 'Android — download Happ';
-    document.getElementById('pc').textContent = 'Computer — message us';
+    document.getElementById('p').textContent = 'Pick your device. Then go back to the bot and tap “Connect”.';
+    links[1].textContent = 'Android — APK file';
+    links[4].textContent = 'Windows — download Happ';
   }
-  document.getElementById('ios').href = A.ios;
-  document.getElementById('android').href = A.android;
-  if (C.telegram) document.getElementById('pc').href = 'https://t.me/' + C.telegram;
+  // Кнопки для вашего устройства — наверх и синим цветом.
   var ua = navigator.userAgent;
   var ios = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-  if (ios && A.ios) location.replace(A.ios);
-  else if (/Android/.test(ua) && A.android) location.replace(A.android);
+  var os = ios ? 'ios' : /Android/.test(ua) ? 'android' : /Macintosh|Mac OS X/.test(ua) ? 'mac' : /Windows/.test(ua) ? 'win' : '';
+  var box = document.getElementById('btns');
+  links.filter(function (a) { return a.getAttribute('data-os') === os; }).reverse().forEach(function (a) {
+    a.className = 'btn btn--primary btn--lg';
+    box.insertBefore(a, box.firstChild);
+  });
+  if (ios && A.ios) location.replace(A.ios); // на iPhone вариант один — сразу в App Store
 })();
 </script>
 </body>
