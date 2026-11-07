@@ -141,42 +141,87 @@
     });
   });
 
-  /* ---------- 6. Окно с формой теста ---------- */
-  var modal = $('#trial');
-  var frame = $('#trial-frame');
-  var loader = $('.modal__loader');
+  /* ---------- 6. Окна: тест и покупка ---------- */
+  var openModal = null;
   var lastFocus = null;
 
-  frame.addEventListener('load', function () {
-    if (frame.getAttribute('src')) loader.style.display = 'none';
-  });
-
-  function openTrial(e) {
-    if (e) e.preventDefault();
+  function showModal(m) {
     lastFocus = document.activeElement;
-    if (!frame.getAttribute('src') && C.trialForm) frame.src = C.trialForm; // загружаем только при открытии
-    modal.hidden = false;
+    m.hidden = false;
+    openModal = m;
     document.body.classList.add('no-scroll');
     closeMenu();
-    setTimeout(function () { $('.modal__close', modal).focus(); }, 30);
+    setTimeout(function () { $('.modal__close', m).focus(); }, 30);
   }
-  function closeTrial() {
-    modal.hidden = true;
+  function hideModal() {
+    if (!openModal) return;
+    openModal.hidden = true;
+    openModal = null;
     document.body.classList.remove('no-scroll');
     if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
-  $$('[data-trial]').forEach(function (b) { b.addEventListener('click', openTrial); });
-  $$('[data-close]', modal).forEach(function (b) { b.addEventListener('click', closeTrial); });
+  $$('.modal [data-close]').forEach(function (b) { b.addEventListener('click', hideModal); });
   document.addEventListener('keydown', function (e) {
-    if (modal.hidden) return;
-    if (e.key === 'Escape') closeTrial();
+    if (!openModal) return;
+    if (e.key === 'Escape') hideModal();
     if (e.key === 'Tab') { // держим фокус внутри окна
-      var f = $$('button, a[href], iframe', modal).filter(function (x) { return x.offsetParent !== null; });
+      var f = $$('button, a[href], input, iframe', openModal).filter(function (x) { return x.offsetParent !== null; });
       var first = f[0], last = f[f.length - 1];
       if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     }
   });
+
+  // Тест: форма Яндекса, загружаем только при открытии
+  var trial = $('#trial');
+  var frame = $('#trial-frame');
+  var loader = $('.modal__loader');
+  frame.addEventListener('load', function () {
+    if (frame.getAttribute('src')) loader.style.display = 'none';
+  });
+  function openTrial(e) {
+    if (e) e.preventDefault();
+    if (!frame.getAttribute('src') && C.trialForm) frame.src = C.trialForm;
+    showModal(trial);
+  }
+  $$('[data-trial]').forEach(function (b) { b.addEventListener('click', openTrial); });
   // ссылка вида rudlink.com/#trial сразу открывает форму
   if (location.hash === '#trial' || location.hash === '#test') openTrial();
+
+  // Покупка: если есть ссылка Coinso, «Купить» открывает окно (СБП на сайте или Telegram)
+  var buy = $('#buy');
+  if (C.payUrl && buy) {
+    $$('[data-buy-tg]').forEach(function (a) { a.href = buyUrl; });
+    $$('[data-buy]').forEach(function (a) {
+      a.addEventListener('click', function (e) { e.preventDefault(); showModal(buy); });
+    });
+    if (location.hash === '#buy') showModal(buy);
+
+    var device = isIOS ? 'iPhone' : 'Android';
+    var chips = $$('.buy__chips button');
+    function pick(name) {
+      device = name;
+      chips.forEach(function (c) { c.setAttribute('aria-checked', String(c.getAttribute('data-dev') === name)); });
+    }
+    pick(device);
+    chips.forEach(function (c) { c.addEventListener('click', function () { pick(c.getAttribute('data-dev')); }); });
+
+    var email = $('#buy-email');
+    var err = $('#buy-err');
+    email.addEventListener('input', function () { err.hidden = true; });
+    $('#buy-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var v = email.value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) { err.hidden = false; email.focus(); return; }
+      // order вернётся в уведомлении Coinso: по нему бот сообщит, кому отправить ключ
+      var q = [
+        'amount=' + (C.price || 259),
+        'order=' + encodeURIComponent('site:' + v + '|' + device),
+        'email=' + encodeURIComponent(v),
+        'desc=' + encodeURIComponent('RUDLink VPN — 30 дней'),
+        'lang=ru'
+      ].join('&');
+      location.href = C.payUrl + '?' + q;
+    });
+  }
 })();

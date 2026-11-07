@@ -13,6 +13,10 @@ window.RUDLINK_CONFIG = {
   // например bot: 'RUDLinkBot'. Пока пусто, ведут в telegram выше.
   bot: '',
 
+  // Платёжная ссылка Coinso (СБП). Если заполнена, «Купить» открывает окно:
+  // оплата по СБП прямо на сайте или оформление в Telegram. Пусто — «Купить» сразу ведёт в Telegram.
+  payUrl: 'https://coinso.io/w/1h1nqao5btxn',
+
   // Почта поддержки
   email: 'ningigame@gmail.com',
 

@@ -398,5 +398,40 @@
   </div>
 </div>
 
+<!-- Окно покупки: СБП прямо на сайте или через Telegram -->
+<div class="modal" id="buy" role="dialog" aria-modal="true" aria-labelledby="buy-title" hidden>
+  <div class="modal__backdrop" data-close></div>
+  <div class="modal__box buy">
+    <button class="modal__close" type="button" data-close aria-label="Закрыть">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="modal__head">
+      <span class="say__ava"></span>
+      <div>
+        <h2 id="buy-title">Подписка на 30 дней</h2>
+        <p><b><span data-price>259</span> ₽</b> · безлимит · до 3 устройств</p>
+      </div>
+    </div>
+
+    <form class="buy__form" id="buy-form" novalidate>
+      <p class="buy__label">1. Ваше устройство</p>
+      <div class="buy__chips" role="radiogroup" aria-label="Устройство">
+        <button type="button" role="radio" aria-checked="true" data-dev="Android">Android</button>
+        <button type="button" role="radio" aria-checked="false" data-dev="iPhone">iPhone</button>
+        <button type="button" role="radio" aria-checked="false" data-dev="Windows">Windows</button>
+        <button type="button" role="radio" aria-checked="false" data-dev="Mac">Mac</button>
+      </div>
+      <label class="buy__label" for="buy-email">2. Почта — пришлём на неё ключ</label>
+      <input class="buy__field" id="buy-email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required>
+      <p class="buy__err" id="buy-err" hidden>Проверьте почту: на неё придёт ключ.</p>
+      <button class="btn btn--primary btn--lg btn--block" type="submit">⚡️ Оплатить по СБП · <span data-price>259</span>&nbsp;₽</button>
+      <p class="buy__fine">Оплата на защищённой странице Coinso, выберите свой банк. Ключ пришлём на почту, обычно в течение часа. Нажимая кнопку, вы принимаете <a href="legal.html">правила сервиса</a>.</p>
+    </form>
+
+    <div class="buy__or"><span>или</span></div>
+    <a class="btn btn--ghost btn--block" data-buy-tg href="https://t.me/Piepiebear" target="_blank" rel="noopener">Оформить в Telegram — картой или СБП</a>
+  </div>
+</div>
+
 </body>
 </html>

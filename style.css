@@ -386,6 +386,22 @@ svg.i{width:18px;height:18px;flex:none}
 .modal__loader span{width:34px;height:34px;border-radius:50%;border:3px solid rgba(36,53,154,.15);border-top-color:var(--navy-2);animation:spin 0.9s linear infinite}
 .modal__alt{margin-top:14px;text-align:center;color:var(--muted);font-size:15px}
 .modal__alt a{font-weight:700;overflow-wrap:anywhere}
+
+/* Окно покупки */
+.buy{max-width:480px;overflow:auto}
+.buy__form{display:grid}
+.buy__label{display:block;margin:6px 0 10px;font-weight:800;font-size:15px;color:var(--navy)}
+.buy__chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.buy__chips button{min-height:44px;padding:8px 16px;border-radius:12px;border:0;background:#fff;color:var(--muted);font:inherit;font-weight:700;font-size:15px;cursor:pointer;box-shadow:inset 0 0 0 2px var(--line);transition:all .15s}
+.buy__chips button[aria-checked=true]{background:var(--navy);color:#fff;box-shadow:none}
+.buy__field{width:100%;min-height:52px;padding:12px 16px;border-radius:14px;border:0;background:#fff;color:var(--ink);font:inherit;font-size:16px;box-shadow:inset 0 0 0 2px var(--line);outline:none;margin-bottom:6px}
+.buy__field:focus{box-shadow:inset 0 0 0 2px var(--navy-2)}
+.buy__err{margin:0 0 6px;color:#c0392b;font-size:14px;font-weight:600}
+.buy__form .btn{margin-top:12px}
+.buy__fine{margin:12px 0 0;color:var(--muted);font-size:13.5px;line-height:1.45;text-align:center}
+.buy__fine a{color:inherit}
+.buy__or{display:flex;align-items:center;gap:12px;margin:18px 0 14px;color:var(--muted);font-size:14px}
+.buy__or::before,.buy__or::after{content:"";flex:1;height:1px;background:var(--line)}
 body.no-scroll{overflow:hidden}
 
 /* ---------- Появление при прокрутке ---------- */

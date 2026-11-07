@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Спасибо за оплату | RUDLink</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f7f2e8">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+<script src="config.js"></script>
+<style>
+  .thx{min-height:100dvh;display:grid;place-items:center;padding:24px 16px}
+  .thx__card{max-width:560px;width:100%;text-align:center;background:var(--card);border-radius:28px;box-shadow:var(--shadow-lg);padding:clamp(26px,5vw,44px);animation:pop .6s var(--ease)}
+  .thx__bear{width:170px;height:170px;margin:0 auto 18px;border-radius:50%;object-fit:cover;background:#fcf8ef;box-shadow:0 0 0 6px #fff,0 0 0 8px rgba(23,32,90,.1),0 20px 40px -18px rgba(23,32,90,.6)}
+  .thx__ok{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:99px;background:rgba(31,164,99,.12);color:var(--green);font-weight:800;font-size:14px;margin-bottom:14px}
+  .thx h1{font-size:clamp(30px,5vw,40px);margin-bottom:12px}
+  .thx p{color:var(--muted)}
+  .thx .say{justify-content:center;margin:22px 0 26px}
+  .thx__cta{display:grid;gap:10px}
+  .thx small{display:block;margin-top:18px;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<!-- Сюда Coinso возвращает покупателя после оплаты на сайте. Это не подтверждение оплаты: ключ выдаём по уведомлению Coinso. -->
+<main class="thx">
+  <div class="thx__card">
+    <img class="thx__bear" src="bear.jpg" width="640" height="640" alt="Медведь RUDLink">
+    <span class="thx__ok"><span class="tick"></span> Спасибо за оплату</span>
+    <h1>Ключ уже готовим</h1>
+    <p id="where">Как только платёж подтвердится, пришлём ключ и короткую инструкцию на вашу почту. Обычно это занимает не больше часа. Загляните и в папку «Спам».</p>
+    <div class="say">
+      <span class="say__ava"></span>
+      <p>Пока ждёте, поставьте приложение. Сэкономим вам минуту.</p>
+    </div>
+    <div class="thx__cta">
+      <a class="btn btn--primary btn--lg" id="app-link" href="https://github.com/Happ-proxy/happ-android/releases/latest/download/Happ.apk" rel="noopener">Скачать приложение</a>
+      <a class="btn btn--ghost btn--lg" href="index.html">На главную</a>
+    </div>
+    <small>Письма нет через час? Напишите на <a id="mail" href="mailto:ningigame@gmail.com">ningigame@gmail.com</a> или в Telegram <a id="tg" href="https://t.me/Piepiebear">@Piepiebear</a></small>
+  </div>
+</main>
+<script>
+(function(){var C=window.RUDLINK_CONFIG||{},a=document.getElementById('app-link'),m=document.getElementById('mail'),t=document.getElementById('tg');
+  var ios=/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  if(C.apps){if(ios){a.href=C.apps.ios;a.target='_blank';a.textContent='Скачать Duck Connect в App Store'}else{a.href=C.apps.android;a.textContent='Скачать Happ для Android'}}
+  if(C.email){m.href='mailto:'+C.email;m.textContent=C.email}
+  if(C.telegram){t.href='https://t.me/'+C.telegram;t.textContent='@'+C.telegram}
+  // Coinso дописывает custom=site:почта|устройство — покажем, куда придёт ключ
+  var c=new URLSearchParams(location.search).get('custom')||'';
+  if(c.indexOf('site:')===0){var mail=c.slice(5).split('|')[0];
+    if(mail){var w=document.getElementById('where');w.textContent='Как только платёж подтвердится, пришлём ключ и инструкцию на '+mail+'. Обычно это занимает не больше часа. Загляните и в папку «Спам».'}}
+})();
+</script>
+</body>
+</html>
