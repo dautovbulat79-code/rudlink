@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Скачать приложение | RUDLink</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f7f2e8">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="stylesheet" href="style.css">
+<script src="config.js"></script>
+<style>
+  .pg{min-height:100dvh;display:grid;place-items:center;padding:24px 16px}
+  .pg__card{max-width:480px;width:100%;text-align:center;background:var(--card);border-radius:28px;box-shadow:var(--shadow-lg);padding:clamp(26px,5vw,40px)}
+  .pg__bear{width:120px;height:120px;margin:0 auto 16px;border-radius:50%;object-fit:cover}
+  .pg h1{font-size:clamp(26px,5vw,34px);margin-bottom:10px}
+  .pg p{color:var(--muted)}
+  .pg__btns{display:grid;gap:10px;margin-top:22px}
+  [hidden]{display:none!important}
+</style>
+</head>
+<body>
+<!-- Кнопка «1. Скачать приложение» из бота. Телефон сразу уходит в нужный магазин, компьютер видит выбор. -->
+<main class="pg">
+  <div class="pg__card">
+    <img class="pg__bear" src="bear.jpg" width="640" height="640" alt="">
+    <h1 id="h">Скачайте приложение</h1>
+    <p id="p">Выберите свой телефон. Потом вернитесь в бот и нажмите «Подключить».</p>
+    <div class="pg__btns">
+      <a class="btn btn--primary btn--lg" id="ios" href="#">iPhone — App Store</a>
+      <a class="btn btn--primary btn--lg" id="android" href="#">Android — скачать Happ</a>
+      <a class="btn btn--ghost btn--lg" id="pc" href="https://t.me/Piepiebear">Компьютер — напишите нам</a>
+    </div>
+  </div>
+</main>
+<script>
+(function () {
+  var C = window.RUDLINK_CONFIG || {}, A = C.apps || {};
+  var en = new URLSearchParams(location.search).get('lang') === 'en';
+  if (en) {
+    document.documentElement.lang = 'en';
+    document.getElementById('h').textContent = 'Download the app';
+    document.getElementById('p').textContent = 'Pick your phone. Then go back to the bot and tap “Connect”.';
+    document.getElementById('ios').textContent = 'iPhone — App Store';
+    document.getElementById('android').textContent = 'Android — download Happ';
+    document.getElementById('pc').textContent = 'Computer — message us';
+  }
+  document.getElementById('ios').href = A.ios;
+  document.getElementById('android').href = A.android;
+  if (C.telegram) document.getElementById('pc').href = 'https://t.me/' + C.telegram;
+  var ua = navigator.userAgent;
+  var ios = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  if (ios && A.ios) location.replace(A.ios);
+  else if (/Android/.test(ua) && A.android) location.replace(A.android);
+})();
+</script>
+</body>
+</html>

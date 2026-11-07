@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Подключение | RUDLink</title>
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#f7f2e8">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="stylesheet" href="style.css">
+<script src="config.js"></script>
+<style>
+  .pg{min-height:100dvh;display:grid;place-items:center;padding:24px 16px}
+  .pg__card{max-width:480px;width:100%;text-align:center;background:var(--card);border-radius:28px;box-shadow:var(--shadow-lg);padding:clamp(26px,5vw,40px)}
+  .pg__bear{width:120px;height:120px;margin:0 auto 16px;border-radius:50%;object-fit:cover}
+  .pg h1{font-size:clamp(26px,5vw,34px);margin-bottom:10px}
+  .pg p{color:var(--muted)}
+  .pg__btns{display:grid;gap:10px;margin-top:22px}
+  [hidden]{display:none!important}
+  .pg small{display:block;margin-top:16px;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<!--
+  Кнопка «2. Подключить» из бота. Ключ приходит после # в адресе: эта часть не уходит на сервер
+  и не попадает в логи. Android: открываем Happ с ключом. iPhone: копируем ключ и говорим, куда вставить.
+-->
+<main class="pg">
+  <div class="pg__card">
+    <img class="pg__bear" src="bear.jpg" width="640" height="640" alt="">
+    <h1 id="h">Подключаем…</h1>
+    <p id="p"></p>
+    <div class="pg__btns">
+      <a class="btn btn--primary btn--lg" id="open" href="#" hidden>Открыть в Happ</a>
+      <button class="btn btn--primary btn--lg" id="copy" type="button">Скопировать ключ</button>
+    </div>
+    <small id="s"></small>
+  </div>
+</main>
+<script>
+(function () {
+  var en = new URLSearchParams(location.search).get('lang') === 'en';
+  var T = en ? {
+    lang: 'en',
+    noKey: 'No key here. Go back to the bot and tap “Connect” there.',
+    android: 'Happ will open and add your key. Then tap the big button to turn the VPN on.',
+    ios: 'Tap “Copy key”, open the app, tap “+” and choose “From clipboard”.',
+    other: 'Copy the key and paste it into the app.',
+    open: 'Open in Happ', copy: 'Copy key', copied: 'Copied ✓',
+    h: 'Connecting…', hDone: 'Almost done',
+    help: 'Didn’t work? Copy the key and add it in the app by hand: “+” → “From clipboard”.'
+  } : {
+    lang: 'ru',
+    noKey: 'Ключа тут нет. Вернитесь в бот и нажмите «Подключить» там.',
+    android: 'Сейчас откроется Happ и добавит ключ. Потом нажмите большую кнопку, чтобы включить VPN.',
+    ios: 'Нажмите «Скопировать ключ», откройте приложение, нажмите «+» и выберите «Из буфера».',
+    other: 'Скопируйте ключ и вставьте его в приложение.',
+    open: 'Открыть в Happ', copy: 'Скопировать ключ', copied: 'Скопировано ✓',
+    h: 'Подключаем…', hDone: 'Почти готово',
+    help: 'Не сработало? Скопируйте ключ и добавьте его вручную: «+» → «Из буфера».'
+  };
+  document.documentElement.lang = T.lang;
+  var $ = function (id) { return document.getElementById(id); };
+  var key = '';
+  try { key = decodeURIComponent(location.hash.slice(1)); } catch (e) {}
+  // Убираем ключ из адресной строки, чтобы он не остался в истории браузера.
+  if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+
+  $('open').textContent = T.open;
+  $('copy').textContent = T.copy;
+  if (!key) {
+    $('h').textContent = T.hDone;
+    $('p').textContent = T.noKey;
+    $('copy').hidden = true;
+    return;
+  }
+
+  $('copy').addEventListener('click', function () {
+    var done = function () { $('copy').textContent = T.copied; };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(key).then(done, fallback);
+    } else fallback();
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = key; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); done(); } catch (e) {}
+      ta.remove();
+    }
+  });
+
+  var ua = navigator.userAgent;
+  var ios = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  $('h').textContent = T.hDone;
+  if (/Android/.test(ua)) {
+    var link = 'happ://add/' + key;
+    $('open').href = link;
+    $('open').hidden = false;
+    $('copy').className = 'btn btn--ghost btn--lg';
+    $('p').textContent = T.android;
+    $('s').textContent = T.help;
+    location.href = link; // сразу пробуем открыть Happ
+  } else {
+    $('p').textContent = ios ? T.ios : T.other;
+  }
+})();
+</script>
+</body>
+</html>
