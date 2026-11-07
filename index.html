@@ -5,11 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>RUDLink — VPN-сервис за 259 ₽ в месяц</title>
 <meta name="description" content="RUDLink: быстрый VPN без ограничения трафика, до 3 устройств, подключение за пару минут. Бесплатный тест на 24 часа, 259 ₽ в месяц.">
-<meta name="theme-color" content="#060d1f">
+<meta name="theme-color" content="#f7f2e8">
 <meta name="cryptoproc-verify" content="cp_6a8f9d2c4e5b">
 <meta property="og:title" content="RUDLink — VPN-сервис за 259 ₽ в месяц">
 <meta property="og:description" content="Безлимитный трафик, до 3 устройств, бесплатный тест на 24 часа.">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:image" content="https://rudlink.com/bear.jpg">
 <link rel="stylesheet" href="style.css">
 <script>document.documentElement.classList.add('js')</script>
 </head>
@@ -18,7 +20,7 @@
 <header class="top">
   <div class="w top-in">
     <a class="logo" href="#" aria-label="RUDLink, на главную">
-      <img src="favicon.svg" alt="" width="30" height="30"><span>RUD<b>Link</b></span>
+      <img src="bear.jpg" alt="" width="34" height="34"><span>RUD<b>Link</b></span>
     </a>
     <nav id="nav" class="nav">
       <a href="#features">Возможности</a>
@@ -39,8 +41,8 @@
   <div class="w hero-in">
     <div class="hero-text">
       <span class="pill"><i></i>Бесплатный тест на 24 часа</span>
-      <h1>Свободный интернет <span class="grad">на всех ваших устройствах</span></h1>
-      <p class="lead">Безлимитный трафик, стабильное соединение и подключение за пару минут. Один тариф, без скрытых платежей и автосписаний.</p>
+      <h1>VPN, который не тормозит <span class="grad">даже перед дедлайном</span></h1>
+      <p class="lead">Безлимитный трафик, до 3 устройств и подключение за 2 минуты — быстрее, чем найти зарядку в общаге. Один тариф, без скрытых платежей.</p>
       <div class="cta">
         <a class="btn" data-pay href="https://coinso.io/w/1h1nqao5btxn?amount=259&amp;lang=ru">Купить за 259 ₽</a>
         <a class="btn ghost" data-trial href="mailto:ningigame@gmail.com">Попробовать бесплатно</a>
@@ -52,49 +54,11 @@
       </ul>
     </div>
 
-    <div class="viz" aria-hidden="true">
-      <svg viewBox="0 0 440 360" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="gr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4cc3ff"/><stop offset="1" stop-color="#7a5cff"/></linearGradient>
-          <radialGradient id="glow"><stop offset="0" stop-color="#4cc3ff" stop-opacity=".45"/><stop offset="1" stop-color="#4cc3ff" stop-opacity="0"/></radialGradient>
-        </defs>
-
-        <path id="p1" class="wire" d="M92 80 C150 80 150 180 186 180"/>
-        <path id="p2" class="wire" d="M92 180 H186"/>
-        <path id="p3" class="wire" d="M92 280 C150 280 150 180 186 180"/>
-        <path id="p4" class="wire hot" d="M254 180 H342"/>
-
-        <g class="pk">
-          <circle r="4" fill="#4cc3ff"><animateMotion dur="2.4s" repeatCount="indefinite"><mpath href="#p1"/></animateMotion></circle>
-          <circle r="4" fill="#4cc3ff"><animateMotion dur="2.4s" begin="-1.6s" repeatCount="indefinite"><mpath href="#p2"/></animateMotion></circle>
-          <circle r="4" fill="#4cc3ff"><animateMotion dur="2.4s" begin="-0.8s" repeatCount="indefinite"><mpath href="#p3"/></animateMotion></circle>
-          <circle r="4.5" fill="#a48cff"><animateMotion dur="1.2s" repeatCount="indefinite"><mpath href="#p4"/></animateMotion></circle>
-          <circle r="4.5" fill="#a48cff"><animateMotion dur="1.2s" begin="-0.6s" repeatCount="indefinite"><mpath href="#p4"/></animateMotion></circle>
-        </g>
-
-        <!-- устройства -->
-        <g class="node"><rect x="44" y="52" width="48" height="56" rx="12"/><rect x="60" y="62" width="16" height="30" rx="3" class="ln"/><circle cx="68" cy="98" r="1.6" fill="#4cc3ff"/></g>
-        <g class="node"><rect x="44" y="152" width="48" height="56" rx="12"/><rect x="55" y="167" width="26" height="17" rx="2" class="ln"/><path d="M51 192 h34" class="ln"/></g>
-        <g class="node"><rect x="44" y="252" width="48" height="56" rx="12"/><rect x="56" y="262" width="24" height="34" rx="3" class="ln"/></g>
-
-        <!-- ядро -->
-        <circle cx="220" cy="180" r="90" fill="url(#glow)"/>
-        <g class="ring"><circle cx="220" cy="180" r="56" fill="none" stroke="url(#gr)" stroke-width="1.5" stroke-dasharray="4 10"/></g>
-        <circle cx="220" cy="180" r="40" fill="#0e1a38" stroke="url(#gr)" stroke-width="2.5"/>
-        <path d="M220 160 l17 6 v12 c0 11-8 19-17 23 c-9-4-17-12-17-23 v-12z" fill="none" stroke="#4cc3ff" stroke-width="2.5" stroke-linejoin="round"/>
-        <path d="M212 180 l6 6 11-12" fill="none" stroke="#4cc3ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-
-        <!-- интернет -->
-        <g class="node globe">
-          <circle cx="374" cy="180" r="32"/>
-          <ellipse cx="374" cy="180" rx="13" ry="32" class="ln"/>
-          <path d="M342 180 h64 M346 166 h56 M346 194 h56" class="ln"/>
-        </g>
-
-        <text x="68" y="334" text-anchor="middle">Ваши устройства</text>
-        <text x="220" y="262" text-anchor="middle">RUDLink</text>
-        <text x="374" y="232" text-anchor="middle">Интернет</text>
-      </svg>
+    <div class="mascot">
+      <img src="bear.jpg" alt="Маскот RUDLink — медведь в ушанке и очках" width="640" height="640">
+      <div class="chip c1" aria-hidden="true"><span class="on"></span><span>Подключено<small>за 2 минуты</small></span></div>
+      <div class="chip c2" aria-hidden="true"><span>♾ Безлимит<small>гигабайты не считаем</small></span></div>
+      <div class="chip c3" aria-hidden="true"><span>259 ₽ / месяц<small>до 3 устройств</small></span></div>
     </div>
   </div>
 </section>
@@ -106,6 +70,7 @@
       <span class="kicker">Возможности</span>
       <h2>Сервис, который просто работает</h2>
       <p class="sub">Без счётчика трафика, сложных настроек и мелкого шрифта.</p>
+      <div class="say"><img src="bear.jpg" alt="" width="52" height="52"><p>Гигабайты не считаю. Я медведь, а не бухгалтер.</p></div>
     </div>
     <div class="bento">
       <article class="card big reveal">
@@ -150,6 +115,7 @@
       <span class="kicker">Тариф</span>
       <h2>Один понятный тариф</h2>
       <p class="sub">Цена окончательная. Продление — только когда вы сами решите, автосписаний нет.</p>
+      <div class="say"><img src="bear.jpg" alt="" width="52" height="52"><p>Дешевле двух капучино у универа. А работает весь месяц.</p></div>
     </div>
     <div class="price-grid">
       <div class="price reveal">
@@ -194,6 +160,7 @@
       <span class="kicker">Подключение</span>
       <h2>Четыре шага&nbsp;— и вы онлайн</h2>
       <p class="sub">Выберите своё устройство.</p>
+      <div class="say"><img src="bear.jpg" alt="" width="52" height="52"><p>Я справился лапами. Вы точно справитесь.</p></div>
     </div>
 
     <div class="tabs reveal" role="tablist">
@@ -228,10 +195,11 @@
       <span class="kicker">Вопросы</span>
       <h2>Коротко о главном</h2>
       <p class="sub">Не нашли ответ? <a href="https://t.me/Piepiebear">Напишите нам</a>.</p>
+      <div class="say"><img src="bear.jpg" alt="" width="52" height="52"><p>Спрашивайте смело — я не кусаюсь. Почти.</p></div>
     </div>
     <div class="qa reveal">
       <details><summary>Как получить бесплатный тест?</summary><p>Нажмите «Попробовать бесплатно» или напишите нам на почту ningigame@gmail.com, и мы выдадим доступ на 24 часа. Один тест на один адрес почты.</p></details>
-      <details><summary>Как оплатить?</summary><p>Нажмите «Купить» — оплата проходит через платёжный сервис Coinso. Данные вашей карты к нам не попадают.</p></details>
+      <details><summary>Как оплатить?</summary><p>Нажмите «Купить» — откроется Telegram, там оформление и оплата картой. Данные вашей карты к нам не попадают.</p></details>
       <details><summary>Сколько устройств можно подключить?</summary><p>До трёх одновременно: например, телефон, ноутбук и планшет.</p></details>
       <details><summary>Как продлить подписку?</summary><p>Просто оплатите следующий месяц, когда захотите. Сами мы ничего не списываем.</p></details>
       <details><summary>Как работает приглашение друга?</summary><p>Когда приглашённый друг оплатит первый месяц, вам обоим добавится по 7 дней.</p></details>
@@ -250,6 +218,7 @@
         <a class="btn" data-trial href="mailto:ningigame@gmail.com">Получить тест</a>
         <a class="btn ghost" data-pay href="https://coinso.io/w/1h1nqao5btxn?amount=259&amp;lang=ru">Купить за 259 ₽</a>
       </div>
+      <div class="say center-say"><img src="bear.jpg" alt="" width="52" height="52"><p>Сутки бесплатно. Не понравится — разойдёмся друзьями.</p></div>
     </div>
   </div>
 </section>
@@ -260,7 +229,7 @@
     <div class="head reveal">
       <span class="kicker">Поддержка</span>
       <h2>Мы на связи</h2>
-      <p class="sub">Отвечаем на почту, в Telegram и по телефону.</p>
+      <p class="sub">Отвечаем на почту, в Telegram и по телефону. Отвечает человек, а не бот.</p>
     </div>
     <div class="contacts">
       <a class="card ct reveal" href="https://t.me/Piepiebear"><small>Telegram</small><span>@Piepiebear</span></a>
@@ -274,7 +243,7 @@
 
 <footer>
   <div class="w foot">
-    <a class="logo" href="#"><img src="favicon.svg" alt="" width="24" height="24"><span>RUD<b>Link</b></span></a>
+    <a class="logo" href="#"><img src="bear.jpg" alt="" width="28" height="28"><span>RUD<b>Link</b></span></a>
     <nav><a href="legal.html#terms">Пользовательское соглашение</a><a href="legal.html#privacy">Политика конфиденциальности</a></nav>
     <p>© <span id="y">2026</span> RUDLink. Продавец: Нагорный Максим Анушеевич, самозанятый, ИНН 163604402018.</p>
   </div>
@@ -283,6 +252,7 @@
 <dialog id="trial" class="modal" aria-labelledby="trial-title">
   <form method="dialog" class="modal-in">
     <button class="x" value="close" aria-label="Закрыть">×</button>
+    <img class="modal-bear" src="bear.jpg" alt="" width="72" height="72">
     <span class="pill"><i></i>24 часа бесплатно</span>
     <h2 id="trial-title">Бесплатный тест</h2>
     <p class="sub">Оставьте почту и выберите устройство — пришлём ссылку-подписку на 24 часа на почту, обычно в течение часа. Один тест на один адрес.</p>
@@ -296,6 +266,7 @@
 <dialog id="buy" class="modal" aria-labelledby="buy-title">
   <form class="modal-in" id="buy-form" novalidate>
     <button type="button" class="x" aria-label="Закрыть">×</button>
+    <img class="modal-bear" src="bear.jpg" alt="" width="72" height="72">
     <span class="pill"><i></i>259 ₽ за 30 дней</span>
     <h2 id="buy-title">Оформление подписки</h2>
     <p class="sub">После оплаты пришлём ссылку-подписку и инструкцию на вашу почту.</p>
@@ -317,7 +288,7 @@
 </dialog>
 
 <div class="bar" aria-hidden="true">
-  <div><b>259 ₽</b> / месяц</div>
+  <div><img src="bear.jpg" alt=""><span><b>259 ₽</b> / месяц</span></div>
   <a class="btn sm" data-pay href="https://coinso.io/w/1h1nqao5btxn?amount=259&amp;lang=ru" tabindex="-1">Купить</a>
 </div>
 
