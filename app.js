@@ -1,153 +1,182 @@
+/* RUDLink — поведение страницы. Чистый JS, без библиотек. */
 (function () {
-  var cfg = window.RUDLINK || {};
+  'use strict';
 
-  document.getElementById('y').textContent = new Date().getFullYear();
+  var C = window.RUDLINK_CONFIG || {};
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
-  var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+  /* ---------- 1. Подставляем настройки из config.js ---------- */
+  var tgUrl = 'https://t.me/' + (C.telegram || 'Piepiebear');
+  var buyUrl = C.bot ? 'https://t.me/' + C.bot + '?start=buy' : tgUrl; // бот сразу открывает кабинет с оплатой
 
-  // Выбор устройства «чипами» внутри окна; возвращает функцию, которая отдаёт выбранное
-  var chipGroup = function (box, onChange) {
-    var chips = box.querySelectorAll('[data-dev]');
-    var current;
-    var set = function (dev) {
-      current = dev;
-      chips.forEach(function (c) { c.setAttribute('aria-checked', c.dataset.dev === dev); });
-      if (onChange) onChange(dev);
-    };
-    chips.forEach(function (c) { c.addEventListener('click', function () { set(c.dataset.dev); }); });
-    set(isIOS ? 'iPhone' : 'Android');
-    return function () { return current; };
-  };
-
-  // Клик по затемнению вокруг окна закрывает его
-  var closeOnBackdrop = function (dlg) {
-    dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
-  };
-
-  // Без ссылки Coinso кнопки «Купить» ведут в бота (сразу в кабинет с оплатой) или в Telegram
-  var tgLink = function (a, url) {
-    a.href = url;
-    a.target = '_blank';
-    a.rel = 'noopener';
-  };
-  if (!cfg.payUrl && (cfg.bot || cfg.telegram)) {
-    document.querySelectorAll('[data-pay]').forEach(function (a) {
-      tgLink(a, cfg.bot ? 'https://t.me/' + cfg.bot + '?start=buy' : 'https://t.me/' + cfg.telegram);
+  $$('[data-buy]').forEach(function (a) { a.href = buyUrl; });
+  $$('[data-tg]').forEach(function (a) { a.href = tgUrl; });
+  $$('[data-tg-text]').forEach(function (el) { el.textContent = '@' + C.telegram; });
+  if (C.price) $$('[data-price]').forEach(function (el) { el.textContent = C.price; });
+  if (C.email) {
+    $$('[data-mail]').forEach(function (a) { a.href = 'mailto:' + C.email; });
+    $$('[data-mail-text]').forEach(function (el) { el.textContent = C.email; });
+  }
+  if (C.phoneRaw) $$('[data-phone]').forEach(function (a) { a.href = 'tel:' + C.phoneRaw; });
+  if (C.phone) $$('[data-phone-text]').forEach(function (el) { el.textContent = C.phone; });
+  if (C.apps) {
+    $$('[data-app]').forEach(function (a) {
+      var u = C.apps[a.getAttribute('data-app')];
+      if (u) a.href = u;
     });
   }
 
-  // Окно «Купить»: устройство и почта → платёжная ссылка Coinso.
-  // Почта и устройство уходят в параметр order — их видно в кабинете Coinso у платежа.
-  var buy = document.getElementById('buy');
-  if (buy && buy.showModal && cfg.payUrl) {
-    var form = document.getElementById('buy-form');
-    var emailIn = document.getElementById('buy-email');
-    var err = document.getElementById('buy-err');
-    var buyDev = chipGroup(buy);
+  /* ---------- 2. Шапка: тень при прокрутке + бургер ---------- */
+  var header = $('.header');
+  var dock = $('#dock');
+  var finalCard = $('.final__card');
 
-    document.querySelectorAll('[data-pay]').forEach(function (a) {
-      a.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.body.classList.remove('menu');
-        buy.showModal();
-        emailIn.focus();
-      });
-    });
-    buy.querySelector('.x').addEventListener('click', function () { buy.close(); });
-    closeOnBackdrop(buy);
-    emailIn.addEventListener('input', function () { err.hidden = true; });
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var email = emailIn.value.trim();
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        err.hidden = false;
-        emailIn.focus();
-        return;
-      }
-      var q = [
-        'amount=' + (cfg.price || 259),
-        'order=' + encodeURIComponent(email + ' | ' + buyDev()),
-        'email=' + encodeURIComponent(email),
-        'desc=' + encodeURIComponent('RUDLink VPN, 30 дней'),
-        'lang=ru',
-      ];
-      location.href = cfg.payUrl + '?' + q.join('&');
-    });
+  function onScroll() {
+    var y = window.scrollY || window.pageYOffset;
+    header.classList.toggle('is-scrolled', y > 10);
   }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 
-  // Окно «Бесплатный тест»: Яндекс Форма (почта + устройство), заявка приходит на почту.
-  // Форма грузится при первом открытии окна, чтобы не замедлять страницу.
-  var trial = document.getElementById('trial');
-  if (trial && trial.showModal) {
-    var frame = document.getElementById('trial-form');
-    var mail = document.getElementById('trial-mail');
-    if (cfg.email) {
-      mail.href = 'mailto:' + cfg.email + '?subject=' + encodeURIComponent('Бесплатный тест RUDLink');
-      mail.textContent = cfg.email;
-    }
-
-    document.querySelectorAll('[data-trial]').forEach(function (a) {
-      a.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.body.classList.remove('menu');
-        if (!frame.src && cfg.trialForm) frame.src = cfg.trialForm + (cfg.trialForm.indexOf('?') < 0 ? '?' : '&') + 'iframe=1';
-        trial.showModal();
-      });
-    });
-    closeOnBackdrop(trial);
+  var burger = $('#burger');
+  var nav = $('#nav');
+  function closeMenu() {
+    nav.classList.remove('is-open');
+    burger.setAttribute('aria-expanded', 'false');
+    burger.setAttribute('aria-label', 'Открыть меню');
   }
-
-  // Мобильное меню
-  var burger = document.querySelector('.burger');
-  var nav = document.getElementById('nav');
   burger.addEventListener('click', function () {
-    var open = document.body.classList.toggle('menu');
-    burger.setAttribute('aria-expanded', open);
+    var open = !nav.classList.contains('is-open');
+    nav.classList.toggle('is-open', open);
+    burger.setAttribute('aria-expanded', String(open));
+    burger.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
   });
-  nav.addEventListener('click', function (e) {
-    if (e.target.tagName === 'A') {
-      document.body.classList.remove('menu');
-      burger.setAttribute('aria-expanded', 'false');
-    }
+  $$('a', nav).forEach(function (a) { a.addEventListener('click', closeMenu); });
+  document.addEventListener('click', function (e) {
+    if (nav.classList.contains('is-open') && !nav.contains(e.target) && !burger.contains(e.target)) closeMenu();
   });
 
-  // Вкладки Android / iPhone
-  var tabs = document.querySelectorAll('[data-tab]');
-  tabs.forEach(function (t) {
-    t.addEventListener('click', function () {
-      tabs.forEach(function (x) { x.setAttribute('aria-selected', x === t); });
-      document.querySelectorAll('[data-for]').forEach(function (el) {
-        el.hidden = el.getAttribute('data-for') !== t.dataset.tab;
-      });
-    });
-  });
-  if (isIOS) tabs[1].click();
-
-  // Появление блоков при прокрутке
-  var els = document.querySelectorAll('.reveal');
+  /* ---------- 3. Появление блоков + активный пункт меню + нижняя панель ---------- */
   if ('IntersectionObserver' in window) {
+    // небольшая «лесенка» задержек для соседних карточек
+    $$('.bento, .pricing, .steps, .faq__list, .contacts').forEach(function (group) {
+      $$('.reveal', group).forEach(function (el, i) { el.style.setProperty('--d', (i % 6) * 0.07 + 's'); });
+    });
+
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
         if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
       });
-    }, { rootMargin: '0px 0px -8% 0px' });
-    els.forEach(function (el) { io.observe(el); });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    $$('.reveal').forEach(function (el) { io.observe(el); });
+
+    var links = {};
+    $$('.nav a[href^="#"]').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        var a = links[en.target.id];
+        if (a && en.isIntersecting) {
+          $$('.nav a.is-current').forEach(function (x) { x.classList.remove('is-current'); });
+          a.classList.add('is-current');
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    Object.keys(links).forEach(function (id) { var s = document.getElementById(id); if (s) spy.observe(s); });
+
+    // нижняя панель (на телефоне): видна всегда, кроме момента,
+    // когда на экране финальный призыв со своими кнопками
+    var finalSeen = false;
+    function syncDock() { dock.classList.toggle('is-shown', !finalSeen); }
+    syncDock();
+    new IntersectionObserver(function (e) { finalSeen = e[0].isIntersecting; syncDock(); }, { threshold: 0.3 }).observe(finalCard);
   } else {
-    els.forEach(function (el) { el.classList.add('in'); });
+    $$('.reveal').forEach(function (el) { el.classList.add('in'); });
+    dock.classList.add('is-shown');
   }
 
-  // Шапка и нижняя панель «Купить» на телефоне
-  var hero = document.querySelector('.hero');
-  var price = document.getElementById('price');
-  function onScroll() {
-    var y = window.scrollY;
-    document.body.classList.toggle('scrolled', y > 8);
-    var pastHero = y > hero.offsetHeight - 80;
-    var r = price.getBoundingClientRect();
-    var priceVisible = r.top < window.innerHeight && r.bottom > 0;
-    document.body.classList.toggle('show-bar', pastHero && !priceVisible);
+  /* ---------- 4. Вкладки Android / iPhone ---------- */
+  var tabs = $$('.tab');
+  var glider = $('.tabs__glider');
+  function moveGlider(t) {
+    if (!glider || !t) return;
+    glider.style.width = t.offsetWidth + 'px';
+    glider.style.transform = 'translateX(' + (t.offsetLeft - 6) + 'px)';
   }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  function selectTab(t, focus) {
+    tabs.forEach(function (x) {
+      var on = x === t;
+      x.classList.toggle('is-active', on);
+      x.setAttribute('aria-selected', String(on));
+      x.tabIndex = on ? 0 : -1;
+      var p = document.getElementById(x.getAttribute('aria-controls'));
+      p.hidden = !on;
+      p.classList.toggle('is-active', on);
+      if (on) $$('.reveal', p).forEach(function (el) { el.classList.add('in'); });
+    });
+    moveGlider(t);
+    if (focus) t.focus();
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { selectTab(t); });
+    t.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        e.preventDefault();
+        selectTab(tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length], true);
+      }
+    });
+  });
+  // Если зашли с iPhone, сразу показываем инструкцию для iPhone
+  var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  selectTab(isIOS ? tabs[1] : tabs[0]);
+  window.addEventListener('resize', function () { moveGlider($('.tab.is-active')); });
+  window.addEventListener('load', function () { moveGlider($('.tab.is-active')); });
+
+  /* ---------- 5. FAQ: открыт только один ответ ---------- */
+  var qas = $$('.qa');
+  qas.forEach(function (d) {
+    d.addEventListener('toggle', function () {
+      if (d.open) qas.forEach(function (o) { if (o !== d) o.open = false; });
+    });
+  });
+
+  /* ---------- 6. Окно с формой теста ---------- */
+  var modal = $('#trial');
+  var frame = $('#trial-frame');
+  var loader = $('.modal__loader');
+  var lastFocus = null;
+
+  frame.addEventListener('load', function () {
+    if (frame.getAttribute('src')) loader.style.display = 'none';
+  });
+
+  function openTrial(e) {
+    if (e) e.preventDefault();
+    lastFocus = document.activeElement;
+    if (!frame.getAttribute('src') && C.trialForm) frame.src = C.trialForm; // загружаем только при открытии
+    modal.hidden = false;
+    document.body.classList.add('no-scroll');
+    closeMenu();
+    setTimeout(function () { $('.modal__close', modal).focus(); }, 30);
+  }
+  function closeTrial() {
+    modal.hidden = true;
+    document.body.classList.remove('no-scroll');
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  $$('[data-trial]').forEach(function (b) { b.addEventListener('click', openTrial); });
+  $$('[data-close]', modal).forEach(function (b) { b.addEventListener('click', closeTrial); });
+  document.addEventListener('keydown', function (e) {
+    if (modal.hidden) return;
+    if (e.key === 'Escape') closeTrial();
+    if (e.key === 'Tab') { // держим фокус внутри окна
+      var f = $$('button, a[href], iframe', modal).filter(function (x) { return x.offsetParent !== null; });
+      var first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
+  // ссылка вида rudlink.com/#trial сразу открывает форму
+  if (location.hash === '#trial' || location.hash === '#test') openTrial();
 })();

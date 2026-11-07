@@ -2,90 +2,140 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Документы — RUDLink</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Документы RUDLink: соглашение и политика конфиденциальности</title>
+<meta name="description" content="Пользовательское соглашение и политика конфиденциальности сервиса RUDLink.">
 <meta name="theme-color" content="#f7f2e8">
-<link rel="icon" href="favicon.png" type="image/png">
+<link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="stylesheet" href="style.css">
+<script src="config.js"></script>
+<style>
+  .doc{padding:28px 0 80px}
+  .doc .wrap{max-width:820px}
+  .doc__toc{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 36px}
+  .doc__toc a{padding:10px 16px;border-radius:12px;background:#fff;box-shadow:var(--shadow-sm);text-decoration:none;font-weight:700;color:var(--navy)}
+  .doc__toc a:hover{color:var(--brown)}
+  .doc h1{font-size:clamp(32px,5vw,48px);margin-top:10px}
+  .doc article{background:var(--card);border-radius:24px;box-shadow:var(--shadow);padding:clamp(22px,4vw,40px);margin-bottom:24px;scroll-margin-top:90px}
+  .doc h2{font-size:clamp(24px,3vw,32px);margin-bottom:6px}
+  .doc h3{margin:26px 0 8px;font-size:18px}
+  .doc p,.doc li{color:#3d4064;font-size:16px}
+  .doc ul{padding-left:20px;margin:8px 0}
+  .doc li{margin:4px 0}
+  .doc__date{color:var(--muted);font-size:14px}
+  .back{display:inline-flex;align-items:center;gap:8px;font-weight:700;text-decoration:none;color:var(--navy)}
+  .back:hover{color:var(--brown)}
+</style>
 </head>
-<body class="scrolled">
-
-<header class="top">
-  <div class="w top-in">
-    <a class="logo" href="index.html"><img src="bear.jpg" alt="" width="34" height="34"><span>RUD<b>Link</b></span></a>
-    <a class="btn sm ghost" href="index.html" style="margin-left:auto">← На главную</a>
+<body>
+<header class="header is-scrolled">
+  <div class="wrap header__in">
+    <a class="logo" href="index.html" aria-label="RUDLink, на главную">
+      <span class="logo__bear" aria-hidden="true"></span>
+      <span class="logo__text">RUD<b>Link</b></span>
+    </a>
+    <a class="back" href="index.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg> На главную</a>
   </div>
 </header>
 
-<main class="w doc">
-  <span class="kicker">Документы</span>
-  <h1>Правила сервиса</h1>
-  <div class="doc-nav">
-    <a href="#terms">Пользовательское соглашение</a>
-    <a href="#privacy">Политика конфиденциальности</a>
-  </div>
+<main class="doc">
+  <div class="wrap">
+    <p class="label">Документы</p>
+    <h1>Правила и конфиденциальность</h1>
+    <nav class="doc__toc" aria-label="Разделы">
+      <a href="#terms">Пользовательское соглашение</a>
+      <a href="#privacy">Политика конфиденциальности</a>
+    </nav>
 
-  <div id="terms" class="part">
-    <h1>Пользовательское соглашение</h1>
-    <p>Сервис RUDLink предоставляет доступ к VPN. Продавец: Нагорный Максим Анушеевич, самозанятый, ИНН 163604402018. Оплачивая тариф, вы принимаете это соглашение.</p>
+    <article id="terms">
+      <h2>Пользовательское соглашение</h2>
+      <p class="doc__date">Редакция 2026 года</p>
 
-    <h2>Услуга и цена</h2>
-    <p>Тариф: 259 ₽ за 30 дней, безлимитный трафик, до 3 устройств. Цена окончательная. Автоматического продления нет. Оплата принимается через платёжный сервис Coinso.</p>
+      <h3>1. Кто оказывает услугу</h3>
+      <p>RUDLink — VPN-сервис. Продавец: Нагорный Максим Анушеевич, самозанятый, ИНН 163604402018. Оплачивая подписку или оформляя бесплатный тест, вы соглашаетесь с этими правилами.</p>
 
-    <h2>Бесплатный тест</h2>
-    <p>Перед оплатой можно получить доступ на 24 часа бесплатно. Один тест на один адрес электронной почты.</p>
+      <h3>2. Тариф и оплата</h3>
+      <ul>
+        <li>Подписка стоит <span data-price>259</span> ₽ за 30 дней: безлимитный трафик, до 3 устройств одновременно.</li>
+        <li>Оформление и оплата проходят через наш Telegram, ссылку на оплату картой мы присылаем там. Оплату принимает платёжный сервис, данные карты к нам не попадают.</li>
+        <li>Автосписаний нет. Подписка продлевается, только если вы сами оплатите следующий период.</li>
+      </ul>
 
-    <h2>Приглашение друга</h2>
-    <p>Когда приглашённый вами пользователь оплатит первый месяц, к подпискам обоих добавляется по 7 дней.</p>
+      <h3>3. Бесплатный тест</h3>
+      <p>Перед оплатой можно получить доступ на 24 часа бесплатно. Один тест на один адрес электронной почты.</p>
 
-    <h2>Правила использования</h2>
-    <ul>
-      <li>Запрещено использовать сервис для действий, нарушающих закон.</li>
-      <li>Запрещено передавать ключ третьим лицам и превышать лимит устройств.</li>
-      <li>При нарушении мы можем отключить доступ без возврата средств.</li>
-    </ul>
+      <h3>4. Приведи друга</h3>
+      <p>Если приглашённый вами друг оплатит свой первый месяц, вам обоим добавляется по 7 дней доступа.</p>
 
-    <h2>Возврат</h2>
-    <p>Если вам не удалось подключиться и вы не использовали заметный объём трафика, напишите в поддержку в течение 3 дней после оплаты, и мы вернём полную сумму тем же способом.</p>
+      <h3>5. Правила использования</h3>
+      <ul>
+        <li>Не использовать сервис для противоправных действий.</li>
+        <li>Не передавать ссылку на подписку другим людям.</li>
+        <li>Не подключать больше устройств, чем разрешено тарифом.</li>
+      </ul>
+      <p>При нарушении этих правил доступ может быть отключён без возврата оплаты.</p>
 
-    <h2>Ответственность</h2>
-    <p>Мы стараемся обеспечить стабильную работу, но не гарантируем бесперебойность: доступность зависит и от условий сети оператора. Мы вправе изменять серверы и приложения для подключения.</p>
+      <h3>6. Возврат денег</h3>
+      <p>Если вам не удалось подключиться и вы не использовали заметный объём трафика, напишите в поддержку в течение 3 дней после оплаты, и мы вернём всю сумму.</p>
 
-    <h2>Контакты</h2>
-    <p>ningigame@gmail.com, Telegram @Piepiebear, +7 937 774-15-22.</p>
-  </div>
+      <h3>7. Ответственность</h3>
+      <p>Мы стараемся, чтобы сервис работал стабильно, но не можем гарантировать доступ без перерывов: на него влияют сети операторов связи. Мы можем менять серверы и рекомендуемые приложения для подключения.</p>
 
-  <div id="privacy" class="part">
-    <h1>Политика конфиденциальности</h1>
-    <p>Мы собираем только данные, необходимые для работы сервиса.</p>
+      <h3>8. Контакты</h3>
+      <p>Почта: <a data-mail href="mailto:ningigame@gmail.com"><span data-mail-text>ningigame@gmail.com</span></a>. Telegram: <a data-tg href="https://t.me/Piepiebear">@Piepiebear</a>. Телефон: <a href="tel:+79377741522">+7 937 774-15-22</a>.</p>
+    </article>
 
-    <h2>Какие данные мы собираем</h2>
-    <ul>
-      <li>Адрес электронной почты или имя пользователя в Telegram.</li>
-      <li>Сообщения в чате поддержки.</li>
-      <li>Данные заказа: сумма, дата, статус оплаты, номер платежа.</li>
-      <li>Идентификатор подписки и объём использованного трафика.</li>
-    </ul>
-    <p>Данные банковской карты мы не получаем и не храним: оплата проходит на стороне платёжного сервиса.</p>
+    <article id="privacy">
+      <h2>Политика конфиденциальности</h2>
+      <p class="doc__date">Редакция 2026 года</p>
 
-    <h2>Чего мы не собираем</h2>
-    <p>Мы не ведём журнал посещённых вами сайтов и содержимого трафика.</p>
+      <h3>1. Какие данные мы получаем</h3>
+      <ul>
+        <li>Email или имя пользователя в Telegram, чтобы выдать доступ и отвечать вам.</li>
+        <li>Сообщения в поддержку.</li>
+        <li>Данные заказа: сумма, дата, статус и идентификатор платежа.</li>
+        <li>Идентификатор подписки и объём использованного трафика.</li>
+      </ul>
 
-    <h2>Хранение и передача</h2>
-    <p>Мы храним данные только столько, сколько нужно для работы подписки и поддержки. Мы не передаём их третьим лицам, кроме платёжного сервиса (для проведения оплаты) и случаев, предусмотренных законом.</p>
+      <h3>2. Чего мы не собираем</h3>
+      <ul>
+        <li>Данные банковской карты: их обрабатывает только платёжный сервис.</li>
+        <li>Историю посещённых сайтов и содержимое вашего трафика.</li>
+      </ul>
 
-    <h2>Ваши права</h2>
-    <p>Вы можете запросить удаление своих данных, написав на ningigame@gmail.com. Мы ответим в разумный срок.</p>
+      <h3>3. Передача третьим лицам</h3>
+      <p>Мы не передаём ваши данные третьим лицам, кроме платёжного сервиса для проведения оплаты и случаев, прямо предусмотренных законом.</p>
+
+      <h3>4. Сколько храним</h3>
+      <p>Данные хранятся столько, сколько нужно для работы подписки и поддержки.</p>
+
+      <h3>5. Ваши права</h3>
+      <p>Вы можете попросить удалить ваши данные, написав на <a data-mail href="mailto:ningigame@gmail.com"><span data-mail-text>ningigame@gmail.com</span></a>.</p>
+    </article>
   </div>
 </main>
 
-<footer>
-  <div class="w foot">
-    <a class="logo" href="index.html"><img src="bear.jpg" alt="" width="28" height="28"><span>RUD<b>Link</b></span></a>
-    <nav><a href="index.html">На главную</a></nav>
-    <p>© 2026 RUDLink. Продавец: Нагорный Максим Анушеевич, самозанятый, ИНН 163604402018.</p>
+<footer class="footer">
+  <div class="wrap footer__in">
+    <a class="logo logo--footer" href="index.html" aria-label="RUDLink, на главную">
+      <span class="logo__bear" aria-hidden="true"></span>
+      <span class="logo__text">RUD<b>Link</b></span>
+    </a>
+    <nav class="footer__links" aria-label="Документы">
+      <a href="#terms">Пользовательское соглашение</a>
+      <a href="#privacy">Политика конфиденциальности</a>
+    </nav>
+    <p class="footer__copy">© 2026 RUDLink. Продавец: Нагорный Максим Анушеевич, самозанятый, ИНН 163604402018.</p>
   </div>
 </footer>
+<script>
+(function(){var C=window.RUDLINK_CONFIG||{};
+  document.querySelectorAll('[data-price]').forEach(function(e){if(C.price)e.textContent=C.price});
+  document.querySelectorAll('[data-mail]').forEach(function(a){if(C.email)a.href='mailto:'+C.email});
+  document.querySelectorAll('[data-mail-text]').forEach(function(e){if(C.email)e.textContent=C.email});
+  document.querySelectorAll('[data-tg]').forEach(function(a){if(C.telegram){a.href='https://t.me/'+C.telegram;a.textContent='@'+C.telegram}});
+})();
+</script>
 </body>
 </html>
